@@ -50,7 +50,6 @@ public class ExampleModule : ApplicationCommandModule<ApplicationCommandContext>
 
         return new InteractionMessageProperties()
         {
-            Content = $"Аватар URL: {resizedUrl}",
             Embeds = new[]
             {
                 new EmbedProperties()
@@ -58,6 +57,37 @@ public class ExampleModule : ApplicationCommandModule<ApplicationCommandContext>
                     Title = $"Аватар пользователя {restUser.Username}",
                     Image = new EmbedImageProperties(resizedUrl),
                     Color = new Color(0x5865F2),
+                }
+            }
+        };
+    }
+
+    [UserCommand("Баннер")]
+    public async Task<InteractionMessageProperties> BannerAsync(User user)
+    {
+        var restUser = await Context.Client.Rest.GetUserAsync(user.Id);
+        bool isGif = restUser.BannerHash?.StartsWith("a_") ?? false;
+        ImageUrl? bannerImage = isGif ? restUser.GetBannerUrl(ImageFormat.Gif) : restUser.GetBannerUrl(ImageFormat.Png);
+        if (bannerImage is null)
+        {
+            return new InteractionMessageProperties
+            {
+                Content = $"❌ У пользователя {restUser.Username} нет баннера.",
+            };
+        }
+        var uri = new Uri(bannerImage.ToString());
+        string baseUrl = uri.GetLeftPart(UriPartial.Path);
+        string resizedUrl = $"{baseUrl}?size=512";
+
+        return new InteractionMessageProperties()
+        {
+            Embeds = new[]
+            {
+                new EmbedProperties()
+                {
+                    Title = $"Баннер пользователя {restUser.Username}",
+                    Image = new EmbedImageProperties(resizedUrl),
+                    Color = new Color(0x5865F2)
                 }
             }
         };
