@@ -1,6 +1,7 @@
 ﻿using NetCord;
 using NetCord.Rest;
 using NetCord.Services.ApplicationCommands;
+using NetCord.Services.ComponentInteractions;
 
 namespace MyBot;
 
