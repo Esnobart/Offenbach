@@ -60,11 +60,11 @@ namespace Offenbach
 
             foreach (var card in hand)
             {
-                string rank = card[..^1]; // убираем последний символ (масть)
+                string rank = card[..^1];
 
                 if (int.TryParse(rank, out int value))
                 {
-                    total += value; // цифры 2–10
+                    total += value;
                 }
                 else if (rank is "J" or "Q" or "K")
                 {
@@ -72,12 +72,11 @@ namespace Offenbach
                 }
                 else if (rank == "A")
                 {
-                    total += 11; // сначала считаем тузы как 11
+                    total += 11;
                     aceCount++;
                 }
             }
 
-            // если перебор >21, то понижаем тузы с 11 → 1
             while (total > 21 && aceCount > 0)
             {
                 total -= 10;
@@ -259,11 +258,11 @@ namespace Offenbach
             string result;
             if (dealerScore > 21 || playerScore > dealerScore)
             {
-                result = "Вы выиграли!";
+                result = "**Вы выиграли!**";
             }
             else if (playerScore < dealerScore)
             {
-                result = "Вы проиграли.";
+                result = "*Вы проиграли.*";
             }
             else
             {

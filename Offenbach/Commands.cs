@@ -93,4 +93,16 @@ public class ExampleModule : ApplicationCommandModule<ApplicationCommandContext>
             }
         };
     }
+
+    [SlashCommand("say", "Сообщение от имени бота")]
+    public async Task SayAsync([SlashCommandParameter(Description = "Сообщение")] string message)
+    {
+        // отвечаем Discord'у эпемерально, чтобы он не показал плашку
+        await Context.Interaction.SendResponseAsync(
+            InteractionCallback.Message("✅ Сообщение отправлено") { Flags = MessageFlags.Ephemeral }
+    );
+
+        // а вот это уже обычное сообщение от бота, без «/say»
+        await Context.Client.Rest.SendMessageAsync(Context.Interaction.ChannelId, message);
+    }
 }
