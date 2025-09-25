@@ -8,12 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NetCord" Version="1.0.0-alpha.416" />
-	<PackageReference Include="NetCord.Hosting" Version="1.0.0-alpha.416" />
-    <PackageReference Include="NetCord.Hosting.AspNetCore" Version="1.0.0-alpha.416" />
-    <PackageReference Include="NetCord.Hosting.Services" Version="1.0.0-alpha.416" />
-    <PackageReference Include="NetCord.Services" Version="1.0.0-alpha.416" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.4-beta1" />
+    <PackageReference Include="NetCord" Version="1.0.0-alpha.428" />
+	<PackageReference Include="NetCord.Hosting" Version="1.0.0-alpha.428" />
+    <PackageReference Include="NetCord.Hosting.AspNetCore" Version="1.0.0-alpha.428" />
+    <PackageReference Include="NetCord.Hosting.Services" Version="1.0.0-alpha.428" />
+    <PackageReference Include="NetCord.Services" Version="1.0.0-alpha.428" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
 
   <ItemGroup>

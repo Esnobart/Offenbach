@@ -2,6 +2,8 @@
 using NetCord.Rest;
 using NetCord.Services.ApplicationCommands;
 using NetCord.Services.ComponentInteractions;
+using System.Reflection;
+using System.Collections;
 
 namespace MyBot;
 
@@ -95,10 +97,35 @@ public class ExampleModule : ApplicationCommandModule<ApplicationCommandContext>
     }
 
     [SlashCommand("say", "Сообщение от имени бота")]
-    public string Say([SlashCommandParameter(Description = "Сообщение")] string message)
+    public InteractionCallbackProperties Say()
     {
-        message = message.Replace("\\n", "\n");
+        return InteractionCallback.Modal(
+            new ModalProperties("say_modal", "Сообщение от имени бота")
+            {
+                new LabelProperties(
+                  "Текст",
+                    new TextInputProperties("text", TextInputStyle.Paragraph)
+                    {
+                        Placeholder = "Введите сообщение",
+                        Required = true,
+                        MinLength = 1,
+                        MaxLength = 2000,
+                    }
+            )}
+        );
+    }
+}
 
-        return message;
+public class ModalModule : ComponentInteractionModule<ModalInteractionContext>
+{
+    [ComponentInteraction("say_modal")]
+    public async Task HandleSayModalAsync()
+    {
+        var label = Context.Components.OfType<Label>().FirstOrDefault();
+        var text = label?.Component as TextInput;
+
+        await Context.Interaction.SendResponseAsync(
+            InteractionCallback.Message(text.Value)
+        );
     }
 }

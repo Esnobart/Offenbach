@@ -12,7 +12,8 @@ var builder = Host.CreateApplicationBuilder(args);
 builder.Services
     .AddDiscordGateway()
     .AddApplicationCommands()
-    .AddComponentInteractions<ButtonInteraction, ButtonInteractionContext>(); 
+    .AddComponentInteractions<ButtonInteraction, ButtonInteractionContext>()
+    .AddComponentInteractions<ModalInteraction, ModalInteractionContext>();
 
 var host = builder.Build();
 
